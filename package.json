@@ -1,0 +1,42 @@
+{
+  "name": "slidev-theme-snapaddy",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "snapAddy corporate identity theme for Slidev",
+  "author": "Michael Wolz",
+  "license": "MIT",
+  "keywords": [
+    "slidev",
+    "slidev-theme"
+  ],
+  "slidev": {
+    "defaults": {
+      "fonts": {
+        "sans": "Inter",
+        "serif": "Livvic",
+        "mono": "Fira Code",
+        "weights": "400,500,600,700,900"
+      }
+    }
+  },
+  "scripts": {
+    "dev": "node --localstorage-file=.slidev-node-localstorage ./node_modules/@slidev/cli/dist/cli.mjs --open",
+    "build": "node --localstorage-file=.slidev-node-localstorage ./node_modules/@slidev/cli/dist/cli.mjs build",
+    "export": "node --localstorage-file=.slidev-node-localstorage ./node_modules/@slidev/cli/dist/cli.mjs export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.15.2",
+    "@slidev/theme-default": "^0.25.0",
+    "vue": "^3.5.35"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.3",
+    "prettier-plugin-slidev": "^1.0.5",
+    "playwright-chromium": "^1.60.0"
+  },
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-slidev"
+    ]
+  }
+}

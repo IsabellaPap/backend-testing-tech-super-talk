@@ -1,0 +1,355 @@
+/* ==========================================================================
+   snapAddy Slidev Custom Theme Stylesheet
+   CI Design Tokens & Custom Presentation Layouts
+   ========================================================================== */
+
+:root {
+  /* --- Corporate Identity Brand Tokens --- */
+  --primary: #004c37;      /* darkgreen-700 (primary brand color) */
+  --secondary: #c8d7b7;    /* softgreen-200 */
+
+  /* Brand Greens */
+  --green-400: #a3d93f;
+  --green-500: #87bd25;
+  --green-600: #6b951d;
+
+  /* Brand Soft Greens */
+  --softgreen-50: #f2f6ef;
+  --softgreen-100: #e3ebdb;
+  --softgreen-200: #c8d7b7;
+  --softgreen-300: #afc596;
+  --softgreen-700: #4b5f35;
+
+  /* Brand Dark Greens */
+  --darkgreen-700: #004c37;
+  --darkgreen-800: #033023;
+
+  /* Brand Dark Dark Greens (Deepest, text/hero bgs) */
+  --text: #003625;         /* darkdarkgreen-800 */
+  --darker: #011811;       /* darkdarkgreen-900 */
+
+  /* Accent Rose (used for failure/alert states) */
+  --alert: #c8335d;        /* darkthulian-600 */
+
+  /* Interface Tokens */
+  --surface: var(--softgreen-100);
+  --yellow: #efd500;       /* yellow-400 */
+
+  /* Slidev Theme Hooks */
+  --slidev-theme-primary: var(--primary);
+}
+
+/* ==========================================================================
+   Global Base Overrides
+   ========================================================================== */
+
+/* Default slide canvas: white surface, deep-green text, Inter body */
+.slidev-layout {
+  background-color: #ffffff;
+  color: var(--text);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+}
+
+/* Hero / Inverse slides: darkgreen-700 background, light text */
+.slidev-layout.sa-inverse {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.slidev-layout.sa-inverse h1,
+.slidev-layout.sa-inverse h2,
+.slidev-layout.sa-inverse h3 {
+  color: #ffffff;
+}
+
+.slidev-layout.sa-inverse strong,
+.slidev-layout.sa-inverse em {
+  color: var(--green-500);
+}
+
+/* Headings + large display text use Livvic */
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.sa-cover-sub,
+.sa-q,
+.sa-kicker,
+.sa-meme-caption,
+.sa-card-title {
+  font-family: "Livvic", ui-sans-serif, system-ui, sans-serif;
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+  color: var(--primary);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.slidev-layout h1 {
+  font-size: 2.6rem;
+  margin-bottom: 2.75rem;
+}
+
+.slidev-layout h2 {
+  font-size: 1.9rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Retain full color strength for subtitles */
+.slidev-layout h1 + p,
+.slidev-layout h2 + p {
+  color: var(--green-500);
+  opacity: 1;
+  margin-bottom: 2rem;
+}
+
+/* Eyebrows / Kickers */
+.sa-kicker {
+  color: var(--green-600);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  margin-bottom: 0.6rem;
+}
+
+/* Lists and Links styling */
+.slidev-layout a {
+  color: var(--green-600);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.slidev-layout strong {
+  color: var(--primary);
+}
+
+.slidev-layout ul li::marker {
+  color: var(--green-500);
+}
+
+/* Code block adjustments */
+.slidev-layout :not(pre) > code {
+  background-color: var(--softgreen-100);
+  color: var(--primary);
+  padding: 0.12em 0.4em;
+  border-radius: 8px;
+  font-weight: 500;
+  border: 1px solid var(--softgreen-200);
+}
+
+.slidev-layout pre {
+  border-radius: 16px !important;
+}
+
+/* ==========================================================================
+   Custom Slide Layout Configurations
+   ========================================================================== */
+
+/* ---- Cover / Title Slide ---- */
+.sa-cover h1 {
+  font-size: 3.2rem;
+}
+
+.sa-cover .sa-cover-sub {
+  color: var(--green-500);
+  font-weight: 600;
+}
+
+/* ---- Section Divider Transition Slide ---- */
+.sa-section h1,
+.sa-section h2 {
+  font-size: 3rem;
+}
+
+.sa-section .sa-kicker {
+  color: var(--green-500);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+}
+
+/* ---- Seed / Discussion Slide ---- */
+.sa-seed {
+  background: var(--softgreen-50);
+}
+
+.sa-seed .sa-q {
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1.25;
+}
+
+/* ---- Wins / Fails / Neutral Status Cards ---- */
+.sa-cards {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.sa-card {
+  background: var(--softgreen-50);
+  border-radius: 24px;
+  padding: 1.25rem 1.4rem;
+  border: 2px solid var(--softgreen-200);
+}
+
+.sa-card.is-win {
+  border-color: var(--green-500);
+}
+
+.sa-card.is-fail {
+  border-color: var(--alert);
+}
+
+.sa-card .sa-card-title {
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.4rem;
+}
+
+/* ---- PowerPoint Master Template Assets ---- */
+.sa-snap-asset {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.sa-asset-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+  gap: 1rem;
+  align-items: end;
+}
+
+.sa-asset-tile {
+  height: 8.5rem;
+  border-radius: 8px;
+  background: var(--softgreen-50);
+  border: 1px solid var(--softgreen-200);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sa-asset-tile .sa-snap-asset {
+  margin: 0 auto;
+}
+
+.sa-asset-label {
+  margin-top: 0.45rem;
+  color: var(--softgreen-700);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Dense variant: fits a whole asset group on a single slide */
+.sa-asset-grid.dense {
+  gap: 0.5rem;
+}
+
+.sa-asset-grid.dense .sa-asset-tile {
+  height: 6.1rem;
+  padding: 0.5rem;
+}
+
+.sa-asset-grid.dense .sa-asset-label {
+  margin-top: 0.3rem;
+  font-size: 0.6rem;
+}
+
+/* ---- Buzzword Firehose Section ---- */
+.sa-buzz {
+  color: var(--softgreen-700);
+  opacity: 0.8;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 2rem 0;
+}
+
+/* ---- Meme Visual Pacing Card ---- */
+.sa-meme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border: 3px dashed var(--green-500);
+  border-radius: 24px;
+  background: var(--softgreen-50);
+  padding: 2rem;
+  text-align: center;
+}
+
+.sa-meme .sa-meme-tag {
+  font-weight: 700;
+  color: var(--green-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+}
+
+.sa-meme .sa-meme-desc {
+  color: var(--text);
+  font-style: italic;
+  max-width: 32ch;
+}
+
+.sa-meme .sa-meme-caption {
+  font-weight: 900;
+  color: var(--primary);
+  font-size: 1.4rem;
+}
+
+/* ---- Pull Quote Block ---- */
+.sa-quote {
+  background: var(--softgreen-50);
+  border-left: 6px solid var(--green-500);
+  border-radius: 0 16px 16px 0;
+  padding: 1.2rem 1.4rem;
+  font-size: 1.25rem;
+  line-height: 1.45;
+  color: var(--text);
+  font-style: italic;
+}
+
+.sa-quote .sa-quote-cite {
+  margin-top: 0.6rem;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--green-600);
+}
+
+/* ---- Continuum Spectrum Line ---- */
+.sa-spectrum {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sa-spectrum-end {
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.sa-spectrum-line {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    var(--alert),
+    var(--green-500)
+  );
+}
