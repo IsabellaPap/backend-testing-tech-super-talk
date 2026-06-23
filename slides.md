@@ -9,15 +9,15 @@ transition: slide-left
 mdc: true
 ---
 
-# snapAddy Presentation Template
+# Backend Testing Tech Super-Talk
 
 <div class="sa-cover-sub text-xl mt-2">
-  A Premium Slidev Baseline for Future Presenters
+  Stay up to date with the latest in testing
 </div>
 
 <div class="absolute bottom-6 left-8 text-sm opacity-80 leading-snug">
-  <div class="font-600">Your Name</div>
-  <div>May 2026</div>
+  <div class="font-600">Andre Löffler & Isabella Papageorgiou</div>
+  <div>July 2026</div>
 </div>
 
 <Logo inverse class="absolute bottom-6 right-8" :height="24" />
@@ -28,34 +28,20 @@ layout: cover
 
 ---
 
-# Welcome to the New Baseline
+# Backend Test Baseline: Where We Are
 
-Here are the key typographic and element style defaults provided out-of-the-box:
-
-- **Typography**: Headings use **Livvic**, body copy uses **Inter**.
-- **Colors**: Rich darkgreen (`#004c37`) for text, green (`#87bd25`) for highlights.
-- **Lists**: Bullet points automatically styled with matching brand colors.
-- **Accents**: Strong statements get colored properly in **bold** or *emphasis*.
-
-You can write standard Markdown slides and get consistent corporate styling instantly.
-
-<Logo class="absolute bottom-6 right-8" :height="24" />
-
----
-
-# Win & Fail Status Cards
-
-Use the custom `<Cards>` and `<Card>` components to display list items, comparisons, or wins and fails.
-
-<Cards :cols="3">
-  <Card title="Neutral State">
-    Use for regular cards, explanations, or factual information without standard alert status colors.
+<Cards :cols="2">
+  <Card title="Current State" kind="win">
+    Every backend feature now has at least one test setup in place.
   </Card>
-  <Card title="Success / Win" kind="win">
-    Highlight achievements, best practices, green lights, or positive items (`kind="win"`).
-  </Card>
-  <Card title="Issue / Fail" kind="fail">
-    Highlight errors, risks, problems, failures, or items requiring caution (`kind="fail"`).
+  <Card title="What is a test setup?">
+    <ul>
+      <li>Supertest type definitions and testing scripts in the package.json.</li>
+      <li>Minimal app config and a minimal app module for focused test bootstrapping.</li>
+      <li>Most features get a <code>create-test-data</code> file or folder for cleaner test-data handling.</li>
+      <li>Controller e2e tests are usually split into permission tests and functionality tests.</li>
+      <li>For utility unit tests, we keep the <code>*.spec.ts</code> file next to the utility function.</li>
+    </ul>
   </Card>
 </Cards>
 
@@ -63,128 +49,184 @@ Use the custom `<Cards>` and `<Card>` components to display list items, comparis
 
 ---
 
-# Master Template Assets
+<h1 class="text-3xl! leading-tight whitespace-nowrap tracking-tight">
+  <code>CreateMinimalAppConfig</code> + <code>CreateMinimalAppModule</code>
+</h1>
 
-Use `<SnapAsset>` for graphics extracted from the PowerPoint master template. The assets are grouped as `mascot` (default), `product`, and `decorative` — every asset is shown on the following slides.
+<p class="mt-2 mb-3! text-sm opacity-75">
+  Two focused bootstrap helpers keep e2e setup lean, deterministic, and feature-scoped.
+</p>
 
-```html
-<SnapAsset name="wave" :height="72" />
-<SnapAsset kind="product" name="visitreport-phone" :height="190" />
-<SnapAsset kind="decorative" name="squiggle" :height="40" decorative />
-```
-
-<Logo class="absolute bottom-6 right-8" :height="24" />
-
----
-
-# Assets · Mascot
-
-<div class="sa-asset-grid dense mt-4" style="--cols: 6">
-  <div class="sa-asset-tile"><SnapAsset name="automation-bot" height="48" /><div class="sa-asset-label">automation-bot</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="bot" height="48" /><div class="sa-asset-label">bot</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="bot-hello" height="48" /><div class="sa-asset-label">bot-hello</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="bot-love" height="48" /><div class="sa-asset-label">bot-love</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="broom" height="48" /><div class="sa-asset-label">broom</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="contact-card" height="48" /><div class="sa-asset-label">contact-card</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="dashboard-chat" height="48" /><div class="sa-asset-label">dashboard-chat</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="dataagent-orb" height="48" /><div class="sa-asset-label">dataagent-orb</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="document" height="48" /><div class="sa-asset-label">document</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="document-hold" height="48" /><div class="sa-asset-label">document-hold</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="document-wave" height="48" /><div class="sa-asset-label">document-wave</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="documents" height="48" /><div class="sa-asset-label">documents</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="finish-flag" height="48" /><div class="sa-asset-label">finish-flag</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="hand" height="48" /><div class="sa-asset-label">hand</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="head" height="48" /><div class="sa-asset-label">head</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="id-card" height="48" /><div class="sa-asset-label">id-card</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="magic-wand" height="48" /><div class="sa-asset-label">magic-wand</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="mobile-growth" height="48" /><div class="sa-asset-label">mobile-growth</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="ok" height="48" /><div class="sa-asset-label">ok</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="peace" height="48" /><div class="sa-asset-label">peace</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="raised-hand" height="48" /><div class="sa-asset-label">raised-hand</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="side-profile" height="48" /><div class="sa-asset-label">side-profile</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="voice-phone" height="48" /><div class="sa-asset-label">voice-phone</div></div>
-  <div class="sa-asset-tile"><SnapAsset name="wave" height="48" /><div class="sa-asset-label">wave</div></div>
-</div>
-
-<Logo class="absolute bottom-6 right-8" :height="24" />
-
----
-
-# Assets · Decorative
-
-<div class="sa-asset-grid dense mt-4" style="--cols: 5">
-  <div class="sa-asset-tile"><SnapAsset kind="decorative" name="asterisk" height="44" decorative /><div class="sa-asset-label">asterisk</div></div>
-  <div class="sa-asset-tile"><SnapAsset kind="decorative" name="blob-lavender" height="44" decorative /><div class="sa-asset-label">blob-lavender</div></div>
-  <div class="sa-asset-tile"><SnapAsset kind="decorative" name="blob-purple" height="44" decorative /><div class="sa-asset-label">blob-purple</div></div>
-  <div class="sa-asset-tile"><SnapAsset kind="decorative" name="blob-rose" height="44" decorative /><div class="sa-asset-label">blob-rose</div></div>
-  <div class="sa-asset-tile"><SnapAsset kind="decorative" name="blob-softgreen" height="44" decorative /><div class="sa-asset-label">blob-softgreen</div></div>
-  <div class="sa-asset-tile"><SnapAsset kind="decorative" name="down-arrow" height="44" decorative /><div class="sa-asset-label">down-arrow</div></div>
-  <div class="sa-asset-tile"><SnapAsset kind="decorative" name="rocket-line" height="44" decorative /><div class="sa-asset-label">rocket-line</div></div>
-  <div class="sa-asset-tile"><SnapAsset kind="decorative" name="squiggle" height="32" decorative /><div class="sa-asset-label">squiggle</div></div>
-  <div class="sa-asset-tile"><SnapAsset kind="decorative" name="squiggle-wide" height="24" decorative /><div class="sa-asset-label">squiggle-wide</div></div>
-  <div class="sa-asset-tile"><SnapAsset kind="decorative" name="company-size-card" height="56" /><div class="sa-asset-label">company-size-card</div></div>
-  <div class="sa-asset-tile"><SnapAsset kind="decorative" name="data-search" height="56" /><div class="sa-asset-label">data-search</div></div>
-  <div class="sa-asset-tile"><SnapAsset kind="decorative" name="magnifier" height="56" /><div class="sa-asset-label">magnifier</div></div>
-  <div class="sa-asset-tile"><SnapAsset kind="decorative" name="priority-card" height="56" /><div class="sa-asset-label">priority-card</div></div>
-</div>
-
-<Logo class="absolute bottom-6 right-8" :height="24" />
-
----
-
-# Assets · Product
-
-<div class="sa-asset-grid dense mt-4" style="--cols: 4; align-items: stretch">
-  <div class="sa-asset-tile" style="height: 11rem"><SnapAsset kind="product" name="analytics-dashboard" height="120" /><div class="sa-asset-label">analytics-dashboard</div></div>
-  <div class="sa-asset-tile" style="height: 11rem"><SnapAsset kind="product" name="business-card-scan-phone" height="120" /><div class="sa-asset-label">business-card-scan-phone</div></div>
-  <div class="sa-asset-tile" style="height: 11rem"><SnapAsset kind="product" name="contact-capture-phone" height="120" /><div class="sa-asset-label">contact-capture-phone</div></div>
-  <div class="sa-asset-tile" style="height: 11rem"><SnapAsset kind="product" name="dashboard-builder" height="120" /><div class="sa-asset-label">dashboard-builder</div></div>
-  <div class="sa-asset-tile" style="height: 11rem"><SnapAsset kind="product" name="report-phone" height="120" /><div class="sa-asset-label">report-phone</div></div>
-  <div class="sa-asset-tile" style="height: 11rem"><SnapAsset kind="product" name="visitreport-phone" height="120" /><div class="sa-asset-label">visitreport-phone</div></div>
-  <div class="sa-asset-tile" style="height: 11rem"><SnapAsset kind="product" name="webapp-composite" height="120" /><div class="sa-asset-label">webapp-composite</div></div>
-</div>
-
-<Logo class="absolute bottom-6 right-8" :height="24" />
-
----
-
-# Product Visuals
-
-<div class="grid grid-cols-[1fr_1.1fr] gap-8 items-center mt-4">
-  <div>
-    <h2>VisitReport and DataAgents screenshots</h2>
-    <p>
-      Product screenshots from the master template can be reused directly in Slidev decks without manual exporting from PowerPoint.
-    </p>
-  </div>
-  <div class="grid grid-cols-2 gap-5 items-center">
-    <SnapAsset kind="product" name="visitreport-phone" height="190" />
-    <SnapAsset kind="product" name="analytics-dashboard" height="150" />
-  </div>
-</div>
-
-<Logo class="absolute bottom-6 right-8" :height="24" />
-
----
-
-# Integrated Meme Placeholders
-
-A theme is not complete without support for visual pacing and humor. Use `<Meme>` as a placeholder while designing:
-
-<div class="grid grid-cols-2 gap-8 items-start mt-8">
-  <div>
-    <ul class="space-y-4">
-      <li>Prompts a custom dashed layout wrapper.</li>
-      <li>Specifies description text (`desc`).</li>
-      <li>Optionally shows a bold bottom caption.</li>
-      <li>Reminds you to replace it with a real graphic before shipping.</li>
+<div class="grid grid-cols-2 gap-6 mt-1 text-base leading-snug">
+  <div class="rounded-2xl border border-[#4381b0]/20 bg-white/70 px-5 py-4 text-left shadow-sm">
+    <div class="text-[11px] uppercase tracking-[0.12em] opacity-60">Config Helper</div>
+    <h3 class="mt-1"><code>create-minimal-app-config.ts</code></h3>
+    <ul class="mt-3 space-y-2">
+      <li>Your feature <code>Environment</code> type with dummy secrets and test DB URLs.</li>
+      <li>Includes <code>LISTEN_ADDRESS: 'http://127.0.0.1:0'</code>.</li>
+      <li>Port <code>0</code> lets the OS assign a free port, preventing conflicts between tests and local dev servers.</li>
     </ul>
   </div>
-  <div>
-    <Meme
-      desc="Distracted boyfriend meme comparing Opus 4.8 vs GPT 5.5"
-      caption="When a new model drops mid-presentation"
-    />
+  <div class="rounded-2xl border border-[#66c1cd]/25 bg-white/70 px-5 py-4 text-left shadow-sm">
+    <div class="text-[11px] uppercase tracking-[0.12em] opacity-60">Module Helper</div>
+    <h3 class="mt-1"><code>create-minimal-app-module.ts</code></h3>
+    <ul class="mt-3 space-y-2">
+      <li>NestJS module created inside a factory function (inline <code>@Module</code> class).</li>
+      <li>Closes over <code>dummyLogger</code> and <code>minimalConfig</code>.</li>
+      <li>Only imports what the feature needs: auth, config, logger, DB pool, Redis, and <code>BroadcastModule</code>.</li>
+      <li>No inter-feature RPC clients, nothing extra.</li>
+    </ul>
+  </div>
+</div>
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+
+---
+
+# Test File Setup (`beforeAll`)
+
+<p class="mb-1! text-sm opacity-75">
+  A <code>beforeAll</code> hook combines these steps in order, picking only what each test type needs.
+</p>
+
+<div class="grid grid-cols-1 gap-3 text-sm leading-relaxed">
+  <div class="rounded-lg border-l-4 border-[#4381b0] bg-[#4381b0]/5 px-4 py-3">
+    <div class="font-600 text-[#4381b0]">1. Boot the app</div>
+    <div class="mt-1 opacity-80"><code>NestBootstrap</code>, apply <code>ValidationPipe</code>, set config, call <code>setupAccessControl</code>. Always first.</div>
+  </div>
+  <div class="rounded-lg border-l-4 border-[#66c1cd] bg-[#66c1cd]/5 px-4 py-3">
+    <div class="font-600 text-[#66c1cd]">2. Wire up a client</div>
+    <div class="mt-1 opacity-80">Typed Axios client from <code>zzz-client</code> (queries tests) or Supertest (permissions tests).</div>
+  </div>
+  <div class="rounded-lg border-l-4 border-[#795a9e] bg-[#795a9e]/5 px-4 py-3">
+    <div class="font-600 text-[#795a9e]">3. Set up test identity</div>
+    <div class="mt-1 opacity-80">Build passenger header(s) manually or from <code>getUserWithRoleDefinition</code>.</div>
+  </div>
+  <div class="rounded-lg border-l-4 border-[#efd500] bg-[#efd500]/5 px-4 py-3">
+    <div class="font-600 text-[#efd500]">4. Create DB state</div>
+    <div class="mt-1 opacity-80">Via raw <code>Pool</code> SQL, <code>TypeORM</code> <code>DataSource</code>, or <code>*TestService</code>. Queries tests only.</div>
+  </div>
+  <div class="rounded-lg border-l-4 border-[#ff2731] bg-[#ff2731]/5 px-4 py-3">
+    <div class="font-600 text-[#ff2731]">5. Register mocks</div>
+    <div class="mt-1 opacity-80"><code>jest.spyOn</code> or <code>SpyGroup</code> on service methods. Permissions &amp; unit tests only.</div>
+  </div>
+</div>
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+
+---
+
+# Two files per controller
+
+<p class="mt-2 text-sm opacity-75">
+  Every controller gets split into two separate e2e spec files, each with its own purpose and setup.
+</p>
+
+<div class="grid gap-6 mt-6">
+  <div style="overflow-x: auto;">
+    <table class="w-full text-sm border-collapse">
+      <thead>
+        <tr class="border-b-2 border-[#4381b0]">
+          <th class="text-left font-600 py-2 px-3 text-[#4381b0]">Aspect</th>
+          <th class="text-left font-600 py-2 px-3 text-[#66c1cd]">Queries Spec</th>
+          <th class="text-left font-600 py-2 px-3 text-[#795a9e]">Permissions Spec</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-gray-200">
+          <td class="py-3 px-3 font-500">Real DB</td>
+          <td class="py-3 px-3">Yes — inserts + cleans up</td>
+          <td class="py-3 px-3">No — service is mocked</td>
+        </tr>
+        <tr class="border-b border-gray-200">
+          <td class="py-3 px-3 font-500">HTTP client</td>
+          <td class="py-3 px-3">Generated Axios client (typed)</td>
+          <td class="py-3 px-3">Supertest</td>
+        </tr>
+        <tr class="border-b border-gray-200">
+          <td class="py-3 px-3 font-500">Service</td>
+          <td class="py-3 px-3">Runs real business logic</td>
+          <td class="py-3 px-3"><code>jest.spyOn</code>'d</td>
+        </tr>
+        <tr>
+          <td class="py-3 px-3 font-500">What it tests</td>
+          <td class="py-3 px-3">Does the endpoint produce the right DB side-effect?</td>
+          <td class="py-3 px-3">Does the controller enforce access control correctly?</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+
+---
+
+# Why the split matters
+
+<p class="mb-1! text-sm opacity-75">
+  Three key benefits of this architecture.
+</p>
+
+<Cards :cols="1">
+  <Card class="text-sm mb-0" title="Permissions tests run in milliseconds">
+    <div class="text-xs">Zero DB setup means they're fully deterministic and give instant feedback on access control logic.</div>
+  </Card>
+  <Card class="text-sm mb-0" title="Mocking gives you total control">
+    <div class="text-xs">You can simulate "what the resource looks like" to test ownership scenarios — e.g., user matches but org doesn't.</div>
+  </Card>
+  <Card class="text-sm mb-0" title="Queries tests stay focused">
+    <div class="text-xs">They test behaviour, not who's allowed to trigger it — permission logic is already verified elsewhere.</div>
+  </Card>
+</Cards>
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+
+---
+
+# Test writing with AI
+
+<p class="text-sm opacity-75">
+  Let's experiment!
+</p>
+
+<div class="grid grid-cols-[1fr_1.4fr] gap-6 items-start">
+  <img src="/assets/meme-split-tests.webp" class="rounded-xl w-full object-contain" alt="meme" />
+  <div class="overflow-y-auto text-xs" style="max-height: 360px;">
+
+```text
+You are refactoring e2e test files in a NestJS TypeScript monorepo.
+
+Convention
+Controllers get two separate e2e spec files:
+
+*.permissions.e2e-spec.ts — tests access control only. The service is mocked
+via jest.spyOn. No real DB setup. Uses getUserWithRoleDefinition + exhaust +
+expectedStatusTransformer to test every role. Contains the isProtectedByGuard
+assertion.
+*.queries.e2e-spec.ts — tests real behaviour against the database. No role
+tables, no service mocking. Uses DataSource or Pool for real DB state.
+
+Rules:
+Each output file is fully self-contained with its own beforeAll that boots
+the NestJS app via NestBootstrap.
+Only import what each file actually uses. Do not copy all imports into both.
+Do not change any test logic — only reorganise.
+The permissions file gets: isProtectedByGuard check, all describe('permissions')
+content, jest.spyOn setup and jest.restoreAllMocks() teardown.
+The queries file gets: all DB test data setup (DataSource, Pool, testData.*),
+all functional/behaviour tests.
+If a beforeAll initialises both a service (for spying) and a dataSource (for DB),
+split them so each file only initialises what it needs.
+
+Task: Split each of the following files into a permissions and a queries file.
+inbox-settings.controller.e2e-spec.ts
+lead-research-settings.controller.e2e-spec.ts
+linkedin-settings.controller.e2e-spec.ts
+linkedin-settings-v2.controller.e2e-spec.ts
+help-request.controller.e2e-spec.ts
+```
+
   </div>
 </div>
 
@@ -194,22 +236,3 @@ A theme is not complete without support for visual pacing and humor. Use `<Meme>
 layout: section
 ---
 
-<div class="sa-kicker">Part 2</div>
-
-# Custom Section Transitions
-
-<div class="mt-6 opacity-80 text-xl">Creating natural visual pauses in your deck</div>
-
----
-layout: seed
----
-
-<div class="sa-q mt-4 space-y-4">
-  What will you build next with this baseline?
-</div>
-
-<div class="mt-8 text-lg opacity-80">
-  This is the <code>seed</code> layout, designed specifically for discussion prompts, Q&A sessions, or wrapping up presentations.
-</div>
-
-<Logo class="absolute bottom-6 right-8" :height="24" />
