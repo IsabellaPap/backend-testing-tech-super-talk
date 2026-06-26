@@ -375,6 +375,21 @@ const vrUserPerms = ['ACCESS_VR_GENERAL', 'ACCESS_VR_FINALISE', 'ACCESS_BC_SETTI
 
 ---
 
+# Test-tables made robust and easy
+
+<p class="text-sm opacity-75">
+  <code>exhaust()</code> will cover a lot of thinking for you.
+</p>
+
+<p class="text-sm opacity-75">
+  Testcases with <code>Record&lt;UserWithRoleKeys, HttpStatus&gt;</code> will complain about missing rows
+</p>
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="isabella" />
+
+---
+
 # Test writing with AI
 
 <p class="text-sm opacity-75">
@@ -420,9 +435,18 @@ help-request.controller.e2e-spec.ts
 
   </div>
 </div>
-
 <Logo class="absolute bottom-6 right-8" :height="24" />
 <Head class="absolute bottom-6 left-8" :height="36" name="isabella" />
+
+---
+
+# Current state of test-coverage
+
+<p class="text-sm opacity-75">
+  Let's flex some numbers!
+</p>
+<Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="andre" />
 
 ---
 layout: section
