@@ -7,5 +7,8 @@ defineProps<{
 </script>
 
 <template>
-  <img :src="'../assets/' + name + '.jpg'" :style="{ height: height + 'px' }" />
+  <img
+    :src="'../assets/' + name + '.jpg'"
+    :style="{ height: height + 'px', 'clip-path': 'circle(50%)' }"
+  />
 </template>

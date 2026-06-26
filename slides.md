@@ -95,6 +95,7 @@ layout: cover
 </div>
 
 <Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="andre" />
 
 ---
 
@@ -117,6 +118,7 @@ layout: cover
 </Cards>
 
 <Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="andre" />
 
 ---
 
@@ -223,6 +225,7 @@ permission_id
 </div>
 
 <Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="andre" />
 
 ---
 
@@ -251,6 +254,7 @@ const vrUserPerms = ['ACCESS_VR_GENERAL', 'ACCESS_VR_FINALISE', 'ACCESS_BC_SETTI
 ```
 
 <Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="andre" />
 
 ---
 
@@ -277,6 +281,7 @@ const vrUserPerms = ['ACCESS_VR_GENERAL', 'ACCESS_VR_FINALISE', 'ACCESS_BC_SETTI
 </ul>
 
 <Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="andre" />
 
 ---
 
@@ -297,6 +302,7 @@ const vrUserPerms = ['ACCESS_VR_GENERAL', 'ACCESS_VR_FINALISE', 'ACCESS_BC_SETTI
 </Cards>
 
 <Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="isabella" />
 
 ---
 
@@ -331,6 +337,7 @@ const vrUserPerms = ['ACCESS_VR_GENERAL', 'ACCESS_VR_FINALISE', 'ACCESS_BC_SETTI
 </div>
 
 <Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="isabella" />
 
 ---
 
@@ -364,6 +371,7 @@ const vrUserPerms = ['ACCESS_VR_GENERAL', 'ACCESS_VR_FINALISE', 'ACCESS_BC_SETTI
 </div>
 
 <Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="isabella" />
 
 ---
 
@@ -414,6 +422,7 @@ help-request.controller.e2e-spec.ts
 </div>
 
 <Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="isabella" />
 
 ---
 layout: section
