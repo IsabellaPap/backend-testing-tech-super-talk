@@ -28,19 +28,270 @@ layout: cover
 
 ---
 
+# Testing Fundamentals
+
+<Cards :cols="3">
+  <Card title="Unit">
+    <ul>
+      <li>Individual units shall meet their requirements.</li>
+      <li>Define sets of input-parameter/output pairs.</li>
+    </ul>
+  </Card>
+  <Card title="Integration" kind="win">
+    <ul>
+      <li>Conjunctions of units shall realize features.</li>
+      <li>Define inputs outputs, but also configurations, callstacks.</li>
+    </ul>
+  </Card>
+  <Card title="End to End" kind="win">
+    <ul>
+      <li>Feature sets shall implement the product.</li>
+      <li>Define high-level usecases.</li>
+    </ul>
+  </Card>
+</Cards>
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="andre" />
+
+---
+
+# How We Slice This
+
+<ul>
+  <li>Our units are super small, often stand-alone functions, and we keep the <code>*.spec.ts</code> file next to them.</li>
+  <li><code>*.permissions.e2e-spec.ts</code> are our top-down Controller + Considerations integration tests.</li>
+  <li><code>*.queries.e2e-spec.ts</code> simulate user input and utilize multiple layers from client to database.</li>
+  <li>Libs and smaller features often have "mixed" <code>*.e2e-spec.ts</code> files.</li>
+</ul>
+
+<div class="grid gap-6 mt-6">
+  <div style="overflow-x: auto;">
+    <table class="w-full text-sm border-collapse">
+      <thead>
+        <tr class="border-b-2 border-[#4381b0]">
+          <th class="text-left font-600 py-2 px-3 text-[#4381b0]">Aspect</th>
+          <td class="py-3 px-3 font-500">Service</td>
+          <td class="py-3 px-3 font-500">Database</td>
+          <td class="py-3 px-3 font-500">HTTP client</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-gray-200">
+          <th class="text-left font-600 py-2 px-3 text-[#795a9e]">Permissions</th>
+          <td class="py-3 px-3"><code>jest.spyOn</code>'d</td>
+          <td class="py-3 px-3">No access</td>
+          <td class="py-3 px-3">Supertest</td>
+        </tr>
+        <tr class="border-b border-gray-200">
+          <th class="text-left font-600 py-2 px-3 text-[#66c1cd]">Queries</th>
+          <td class="py-3 px-3">Runs real business logic</td>
+          <td class="py-3 px-3">Yes — inserts + cleans up</td>
+          <td class="py-3 px-3">Axios client</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+
+---
+
+# Why the split matters
+
+<p class="mb-1! text-sm opacity-75">
+  Three key benefits of this architecture.
+</p>
+
+<Cards :cols="1">
+  <Card class="text-sm mb-0" title="Permissions tests run in milliseconds">
+    <div class="text-xs">Zero DB setup means they're fully deterministic and give instant feedback on access control logic.</div>
+  </Card>
+  <Card class="text-sm mb-0" title="Mocking gives you total control">
+    <div class="text-xs">You can simulate "what the resource looks like" to test ownership scenarios — e.g., user matches but org doesn't.</div>
+  </Card>
+  <Card class="text-sm mb-0" title="Queries tests stay focused">
+    <div class="text-xs">They test behaviour, not who's allowed to trigger it — permission logic is already verified elsewhere.</div>
+  </Card>
+</Cards>
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+
+---
+
+# Sidequest: Permissions
+
+<p class="mb-1! text-sm opacity-75">
+From the Database to the Gateway Passenger
+</p>
+
+<div class="grid grid-cols-[1fr_1fr] gap-6 items-start">
+
+<div>
+  <div v-click="2" class="overflow-y-hidden text-xs" style="max-height: 360px;">
+
+```text
+FUNCTION public.snapaddy_all_user_permissions
+  (organization_id integer, user_id integer)
+ RETURNS character varying[]
+ LANGUAGE plpgsql
+  ... (50+ lines)
+```
+
+  </div>
+
+<Arrow v-click="2" v-bind="{ x1:255, y1:265, x2:195, y2:220 }" />
+<Arrow v-click.hide="2" v-bind="{ x1:335, y1:235, x2:500, y2:170 }" />
+
+  <div class="green-box overflow-y-hidden text-xs" style="max-height: 360px; float: right">
+
+```text
+snapaddy_permission
+----------------------------
+permission_id
+permission_key
+```
+
+  </div>
+
+</div> <!-- from database -->
+
+<Arrow v-click="2" v-bind="{ x1:400, y1:145, x2:500, y2:145 }" />
+
+<div>
+  <div class="overflow-y-hidden text-xs" style="max-height: 360px;">
+
+```text
+"permissions": [
+  ...
+  "ACCESS_VR_GENERAL",
+  "ACCESS_VR_ALL_QUESTIONNAIRES",
+  "ACCESS_VR_ANALYTICS",
+  "ACCESS_VR_ANALYTICS_PERSDATA",
+  "ACCESS_VR_CONFIGURATOR",
+  "ACCESS_VR_INVITE_REPORTER",
+  ...
+]
+```
+
+  </div>
+
+</div> <!-- gateway passenger -->
+
+<Arrow v-click="1" v-bind="{ x1:750, y1:375, x2:375, y2:300 }" />
+<Arrow v-click="1" v-bind="{ x1:400, y1:365, x2:370, y2:305 }" />
+<Arrow v-click="1" v-bind="{ x1:150, y1:375, x2:260, y2:300 }" />
+
+</div>
+
+<div class="grid grid-cols-[1fr_1fr_1fr] gap-6 items-start" style="margin-top: 20px">
+  <div v-click="1" class="overflow-y-hidden text-xs" style="max-height: 360px;">
+
+```text
+snapaddy_role_permission
+----------------------------
+role_id
+permission_id
+```
+
+  </div>
+
+  <div v-click="1" class="overflow-y-hidden text-xs" style="max-height: 360px;">
+
+```text
+snapaddy_module_permission
+----------------------------
+module_id
+permission_id
+```
+
+  </div>
+
+  <div v-click="1" class="overflow-y-hidden text-xs" style="max-height: 360px;">
+
+```text
+snapaddy_user_permission
+----------------------------
+user_id
+organization_id
+permission_id
+```
+
+  </div>
+
+</div>
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+
+---
+
+# Sidequest: Permissions Mocking
+
+<Cards :cols="1" style="margin-bottom: 20px;">
+  <Card class="text-sm mb-0 is-fail" title="To do this proper, you'd need to create the following for every test suite">
+    <ul>
+      <li>organization and user — to attach everything</li>
+      <li>subscription and organization-subscription-type — to get the modules</li>
+      <li>user-organization-membership, user-license, user-role  — for the role permissions</li>
+    </ul>
+  </Card>
+
+  <Card class="text-sm mb-0" title="Mocking greatly improves the developer experience, but how?">
+    <ul>
+      <li>Just hard-code a short list of the permissions relevant to your current test suite?</li>
+      <li>Those can't be trusted.</li>
+    </ul>
+  </Card>
+</Cards>
+
+```text
+const vrUserPerms = ['ACCESS_VR_GENERAL', 'ACCESS_VR_FINALISE', 'ACCESS_BC_SETTINGS',
+                     'ACCESS_VR_ALL_QUESTIONNAIRES', 'ACCESS_VR_UNRESTRICTED'];
+```
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+
+---
+
+# Sidequest: Permissions Mocking Proper
+
+<Cards :cols="1">
+  <Card class="text-sm mb-0" title="My personal Pain">
+<ul>
+  <li>I've been adding several new roles lately, some of them "Manager".</li>
+  <li>This required replacing a lot of "is admin?" checks with <code>UserPermissionConsideration</code>.</li>
+  <li>Looked into hundreds of tests: hard-coded lists and real users, test-tables and single cases.</li>
+  <li>How to catch side-effects before they become hotfixes?</li>
+</ul>
+  </Card>
+</Cards>
+
+<h3 style="margin-top: 20px;">  The four-part Solution: put everything into snapaddy-test</h3>
+<ul>
+  <li><code>user-with-role.enum.ts</code>: list of all roles we have.</li>
+  <li><code>permission-lists.constants.ts</code>: collection of lists of permissions for each role.</li>
+  <li><code>getUserWithRoleDefinition(...)</code>: to map the enum values to the lists. Use this <em>everywhere!</em></li>
+  <li>No "trust me, bro! <twemoji-see-no-evil-monkey />": integration-tested to match <code>snapaddy_all_user_permissions</code>.</li>
+  <li>For the coverage, we have <code>exhaust(...)</code>...</li>
+</ul>
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+
+---
+
 # Backend Test Baseline: Where We Are
 
+<p class="mt-2 text-sm opacity-75">
+  Every backend feature now has at least one test setup in place. <twemoji-partying-face />
+</p>
+
 <Cards :cols="2">
-  <Card title="Current State" kind="win">
-    Every backend feature now has at least one test setup in place.
-  </Card>
   <Card title="What is a test setup?">
     <ul>
       <li>Supertest type definitions and testing scripts in the package.json.</li>
       <li>Minimal app config and a minimal app module for focused test bootstrapping.</li>
       <li>Most features get a <code>create-test-data</code> file or folder for cleaner test-data handling.</li>
-      <li>Controller e2e tests are usually split into permission tests and functionality tests.</li>
-      <li>For utility unit tests, we keep the <code>*.spec.ts</code> file next to the utility function.</li>
     </ul>
   </Card>
 </Cards>
@@ -116,74 +367,6 @@ layout: cover
 
 ---
 
-# Two files per controller
-
-<p class="mt-2 text-sm opacity-75">
-  Every controller gets split into two separate e2e spec files, each with its own purpose and setup.
-</p>
-
-<div class="grid gap-6 mt-6">
-  <div style="overflow-x: auto;">
-    <table class="w-full text-sm border-collapse">
-      <thead>
-        <tr class="border-b-2 border-[#4381b0]">
-          <th class="text-left font-600 py-2 px-3 text-[#4381b0]">Aspect</th>
-          <th class="text-left font-600 py-2 px-3 text-[#66c1cd]">Queries Spec</th>
-          <th class="text-left font-600 py-2 px-3 text-[#795a9e]">Permissions Spec</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="border-b border-gray-200">
-          <td class="py-3 px-3 font-500">Real DB</td>
-          <td class="py-3 px-3">Yes — inserts + cleans up</td>
-          <td class="py-3 px-3">No — service is mocked</td>
-        </tr>
-        <tr class="border-b border-gray-200">
-          <td class="py-3 px-3 font-500">HTTP client</td>
-          <td class="py-3 px-3">Generated Axios client (typed)</td>
-          <td class="py-3 px-3">Supertest</td>
-        </tr>
-        <tr class="border-b border-gray-200">
-          <td class="py-3 px-3 font-500">Service</td>
-          <td class="py-3 px-3">Runs real business logic</td>
-          <td class="py-3 px-3"><code>jest.spyOn</code>'d</td>
-        </tr>
-        <tr>
-          <td class="py-3 px-3 font-500">What it tests</td>
-          <td class="py-3 px-3">Does the endpoint produce the right DB side-effect?</td>
-          <td class="py-3 px-3">Does the controller enforce access control correctly?</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<Logo class="absolute bottom-6 right-8" :height="24" />
-
----
-
-# Why the split matters
-
-<p class="mb-1! text-sm opacity-75">
-  Three key benefits of this architecture.
-</p>
-
-<Cards :cols="1">
-  <Card class="text-sm mb-0" title="Permissions tests run in milliseconds">
-    <div class="text-xs">Zero DB setup means they're fully deterministic and give instant feedback on access control logic.</div>
-  </Card>
-  <Card class="text-sm mb-0" title="Mocking gives you total control">
-    <div class="text-xs">You can simulate "what the resource looks like" to test ownership scenarios — e.g., user matches but org doesn't.</div>
-  </Card>
-  <Card class="text-sm mb-0" title="Queries tests stay focused">
-    <div class="text-xs">They test behaviour, not who's allowed to trigger it — permission logic is already verified elsewhere.</div>
-  </Card>
-</Cards>
-
-<Logo class="absolute bottom-6 right-8" :height="24" />
-
----
-
 # Test writing with AI
 
 <p class="text-sm opacity-75">
@@ -235,4 +418,3 @@ help-request.controller.e2e-spec.ts
 ---
 layout: section
 ---
-

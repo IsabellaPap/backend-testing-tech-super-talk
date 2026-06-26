@@ -5,8 +5,8 @@
 
 :root {
   /* --- Corporate Identity Brand Tokens --- */
-  --primary: #004c37;      /* darkgreen-700 (primary brand color) */
-  --secondary: #c8d7b7;    /* softgreen-200 */
+  --primary: #004c37; /* darkgreen-700 (primary brand color) */
+  --secondary: #c8d7b7; /* softgreen-200 */
 
   /* Brand Greens */
   --green-400: #a3d93f;
@@ -25,15 +25,15 @@
   --darkgreen-800: #033023;
 
   /* Brand Dark Dark Greens (Deepest, text/hero bgs) */
-  --text: #003625;         /* darkdarkgreen-800 */
-  --darker: #011811;       /* darkdarkgreen-900 */
+  --text: #003625; /* darkdarkgreen-800 */
+  --darker: #011811; /* darkdarkgreen-900 */
 
   /* Accent Rose (used for failure/alert states) */
-  --alert: #c8335d;        /* darkthulian-600 */
+  --alert: #c8335d; /* darkthulian-600 */
 
   /* Interface Tokens */
   --surface: var(--softgreen-100);
-  --yellow: #efd500;       /* yellow-400 */
+  --yellow: #efd500; /* yellow-400 */
 
   /* Slidev Theme Hooks */
   --slidev-theme-primary: var(--primary);
@@ -347,9 +347,11 @@
 .sa-spectrum-line {
   height: 4px;
   border-radius: 2px;
-  background: linear-gradient(
-    to right,
-    var(--alert),
-    var(--green-500)
-  );
+  background: linear-gradient(to right, var(--alert), var(--green-500));
+}
+
+.green-box {
+  background: var(--softgreen-50);
+  border: 2px solid var(--green-500);
+  border-radius: 24px;
 }
