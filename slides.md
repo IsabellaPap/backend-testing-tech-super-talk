@@ -347,26 +347,26 @@ const vrUserPerms = ['ACCESS_VR_GENERAL', 'ACCESS_VR_FINALISE', 'ACCESS_BC_SETTI
   A <code>beforeAll</code> hook combines these steps in order, picking only what each test type needs.
 </p>
 
-<div class="grid grid-cols-1 gap-3 text-sm leading-relaxed">
-  <div class="rounded-lg border-l-4 border-[#4381b0] bg-[#4381b0]/5 px-4 py-3">
-    <div class="font-600 text-[#4381b0]">1. Boot the app</div>
-    <div class="mt-1 opacity-80"><code>NestBootstrap</code>, apply <code>ValidationPipe</code>, set config, call <code>setupAccessControl</code>. Always first.</div>
+<div class="grid grid-cols-2 gap-3 text-xs leading-relaxed">
+  <div class="rounded-xl border-l-4 border-[#4381b0] border border-[#4381b0]/20 bg-white/70 px-4 py-3 shadow-sm">
+    <div class="font-600 text-[#4381b0] text-[11px] uppercase tracking-wide mb-1">1. Boot the app</div>
+    <div class="opacity-75"><code>NestBootstrap</code>, apply <code>ValidationPipe</code>, set config, call <code>setupAccessControl</code>. Always first.</div>
   </div>
-  <div class="rounded-lg border-l-4 border-[#66c1cd] bg-[#66c1cd]/5 px-4 py-3">
-    <div class="font-600 text-[#66c1cd]">2. Wire up a client</div>
-    <div class="mt-1 opacity-80">Typed Axios client from <code>zzz-client</code> (queries tests) or Supertest (permissions tests).</div>
+  <div class="rounded-xl border-l-4 border-[#66c1cd] border border-[#66c1cd]/20 bg-white/70 px-4 py-3 shadow-sm">
+    <div class="font-600 text-[#66c1cd] text-[11px] uppercase tracking-wide mb-1">2. Wire up a client</div>
+    <div class="opacity-75">Typed Axios client from <code>zzz-client</code> (queries tests) or Supertest (permissions tests).</div>
   </div>
-  <div class="rounded-lg border-l-4 border-[#795a9e] bg-[#795a9e]/5 px-4 py-3">
-    <div class="font-600 text-[#795a9e]">3. Set up test identity</div>
-    <div class="mt-1 opacity-80">Build passenger header(s) manually or from <code>getUserWithRoleDefinition</code>.</div>
+  <div class="rounded-xl border-l-4 border-[#795a9e] border border-[#795a9e]/20 bg-white/70 px-4 py-3 shadow-sm">
+    <div class="font-600 text-[#795a9e] text-[11px] uppercase tracking-wide mb-1">3. Set up test identity</div>
+    <div class="opacity-75">Build passenger header(s) manually or from <code>getUserWithRoleDefinition</code>.</div>
   </div>
-  <div class="rounded-lg border-l-4 border-[#efd500] bg-[#efd500]/5 px-4 py-3">
-    <div class="font-600 text-[#efd500]">4. Create DB state</div>
-    <div class="mt-1 opacity-80">Via raw <code>Pool</code> SQL, <code>TypeORM</code> <code>DataSource</code>, or <code>*TestService</code>. Queries tests only.</div>
+  <div class="rounded-xl border-l-4 border-[#4381b0] border border-[#4381b0]/20 bg-white/70 px-4 py-3 shadow-sm">
+    <div class="font-600 text-[#4381b0] text-[11px] uppercase tracking-wide mb-1">4. Create DB state</div>
+    <div class="opacity-75">Via raw <code>Pool</code> SQL, <code>TypeORM</code> <code>DataSource</code>, or <code>*TestService</code>. Queries tests only.</div>
   </div>
-  <div class="rounded-lg border-l-4 border-[#ff2731] bg-[#ff2731]/5 px-4 py-3">
-    <div class="font-600 text-[#ff2731]">5. Register mocks</div>
-    <div class="mt-1 opacity-80"><code>jest.spyOn</code> or <code>SpyGroup</code> on service methods. Permissions &amp; unit tests only.</div>
+  <div class="col-span-2 rounded-xl border-l-4 border-[#66c1cd] border border-[#66c1cd]/20 bg-white/70 px-4 py-3 shadow-sm">
+    <div class="font-600 text-[#66c1cd] text-[11px] uppercase tracking-wide mb-1">5. Register mocks</div>
+    <div class="opacity-75"><code>jest.spyOn</code> or <code>SpyGroup</code> on service methods. Permissions &amp; unit tests only.</div>
   </div>
 </div>
 
@@ -383,6 +383,57 @@ const vrUserPerms = ['ACCESS_VR_GENERAL', 'ACCESS_VR_FINALISE', 'ACCESS_BC_SETTI
 
 <p class="text-sm opacity-75">
   Testcases with <code>Record&lt;UserWithRoleKeys, HttpStatus&gt;</code> will complain about missing rows
+</p>
+
+```ts
+export function exhaust<
+  TestCases extends Record<string | number | symbol, unknown>,
+  Key extends keyof TestCases = keyof TestCases,
+  Value extends TestCases[Key] = TestCases[Key],
+  TestSetup extends unknown = unknown,
+>(
+  testCases: TestCases,
+  testArgsFactory: (arg: Key, value: Value) => TestSetup,
+): (description: string, testFn: (args: TestSetup) => void | PromiseLike<void>) => void {
+  return test.each(Object.entries(testCases).map(([key, value]) => testArgsFactory(key as Key, value as Value)));
+}
+```
+
+<p class="text-sm font-600 mt-2">
+  → Thin wrapper around <code>test.each</code> — but the input is a <code>Record&lt;EnumKey, …&gt;</code>, so TypeScript enforces every member is present at compile time.
+</p>
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="isabella" />
+
+---
+
+# `exhaust()` in the wild
+
+```ts
+const testCases: Record<UserWithRoleKeys, HttpStatus> = {
+  REPORTER:            HttpStatus.FORBIDDEN,
+  VR_USER:             HttpStatus.FORBIDDEN,
+  ORGANIZATION_ADMIN:  HttpStatus.CREATED,
+  SNAPADDY_ADMIN:      HttpStatus.CREATED,
+};
+
+exhaust(testCases, expectedStatusTransformer<UserWithRoleKeys>)(
+  'should $expectation the role $roleName returning HTTP $expectedStatus',
+  async ({ roleName, expectedStatus }) => {
+    const roleDefinition = getUserWithRoleDefinition(roleName);
+    const passengerHeader = passengerToString({ ...roleDefinition, organizationId });
+    await request(app.getHttpServer())
+      .put('/scim').send(dto)
+      .set(CommonBackendHeaders.GATEWAY_PASSENGER, passengerHeader)
+      .expect(expectedStatus);
+  },
+);
+```
+
+<p class="text-sm opacity-75 mt-2">
+  Add a new role to <code>UserWithRoleKeys</code> → TypeScript refuses to compile until <code>testCases</code> maps it to an <code>HttpStatus</code>.
+  A plain <code>test.each</code> array silently misses new roles forever.
 </p>
 
 <Logo class="absolute bottom-6 right-8" :height="24" />
