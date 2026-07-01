@@ -25,14 +25,15 @@
     "export": "node --localstorage-file=.slidev-node-localstorage ./node_modules/@slidev/cli/dist/cli.mjs export"
   },
   "dependencies": {
+    "@iconify-json/twemoji": "^1.2.5",
     "@slidev/cli": "^52.15.2",
     "@slidev/theme-default": "^0.25.0",
     "vue": "^3.5.35"
   },
   "devDependencies": {
+    "playwright-chromium": "^1.60.0",
     "prettier": "^3.8.3",
-    "prettier-plugin-slidev": "^1.0.5",
-    "playwright-chromium": "^1.60.0"
+    "prettier-plugin-slidev": "^1.0.5"
   },
   "prettier": {
     "plugins": [
