@@ -394,8 +394,15 @@ export function exhaust<
 >(
   testCases: TestCases,
   testArgsFactory: (arg: Key, value: Value) => TestSetup,
-): (description: string, testFn: (args: TestSetup) => void | PromiseLike<void>) => void {
-  return test.each(Object.entries(testCases).map(([key, value]) => testArgsFactory(key as Key, value as Value)));
+): (
+  description: string,
+  testFn: (args: TestSetup) => void | PromiseLike<void>,
+) => void {
+  return test.each(
+    Object.entries(testCases).map(([key, value]) =>
+      testArgsFactory(key as Key, value as Value),
+    ),
+  );
 }
 ```
 
@@ -412,19 +419,23 @@ export function exhaust<
 
 ```ts
 const testCases: Record<UserWithRoleKeys, HttpStatus> = {
-  REPORTER:            HttpStatus.FORBIDDEN,
-  VR_USER:             HttpStatus.FORBIDDEN,
-  ORGANIZATION_ADMIN:  HttpStatus.CREATED,
-  SNAPADDY_ADMIN:      HttpStatus.CREATED,
+  REPORTER: HttpStatus.FORBIDDEN,
+  VR_USER: HttpStatus.FORBIDDEN,
+  ORGANIZATION_ADMIN: HttpStatus.CREATED,
+  SNAPADDY_ADMIN: HttpStatus.CREATED,
 };
 
 exhaust(testCases, expectedStatusTransformer<UserWithRoleKeys>)(
-  'should $expectation the role $roleName returning HTTP $expectedStatus',
+  "should $expectation the role $roleName returning HTTP $expectedStatus",
   async ({ roleName, expectedStatus }) => {
     const roleDefinition = getUserWithRoleDefinition(roleName);
-    const passengerHeader = passengerToString({ ...roleDefinition, organizationId });
+    const passengerHeader = passengerToString({
+      ...roleDefinition,
+      organizationId,
+    });
     await request(app.getHttpServer())
-      .put('/scim').send(dto)
+      .put("/scim")
+      .send(dto)
       .set(CommonBackendHeaders.GATEWAY_PASSENGER, passengerHeader)
       .expect(expectedStatus);
   },
@@ -493,12 +504,77 @@ help-request.controller.e2e-spec.ts
 
 # Current state of test-coverage
 
-<p class="text-sm opacity-75">
-  Let's flex some numbers!
-</p>
+<h2 style="margin-top: 20px;">The Biggest</h2>
+
+<Cards :cols="2">
+  <Card class="text-sm mb-0"  title="2024"><table>
+  <tbody>
+    <tr><td style="width: 30px;">1.</td><td>nest-questionnaire <span style="margin-left: 5px; font-size: 10px;">16163 lines</span></td><td>14.29 %</td></tr>
+    <tr><td style="width: 30px;">2.</td><td>similarity <span style="margin-left: 5px; font-size: 10px;">14411 lines</span></td><td>83.12 %</td></tr>
+    <tr><td style="width: 30px;">3.</td><td>digital-cards <span style="margin-left: 5px; font-size: 10px;">11030 lines</span></td><td>87.86 %</td></tr>
+    <tr v-click="1"><td style="width: 30px;">5.</td><td> questionnaire <span style="margin-left: 5px; font-size: 10px;">9603 lines</span></td><td>76.98 %</td></tr>
+    <tr v-click="1"><td style="width: 30px;">6.</td><td> nest-workflows <span style="margin-left: 5px; font-size: 10px;">9133 lines</span></td><td>10.13 %</td></tr>
+  </tbody>
+  </table>
+  </Card>
+  <Card class="text-sm mb-0" title="2026"><table>
+  <tbody>
+    <tr><td style="width: 30px;">1.</td><td>questionnaire <span style="margin-left: 5px; font-size: 10px;">46226 lines</span></td><td>91.21 %</td></tr>
+    <tr><td style="width: 30px;">2.</td><td>nest-workflows <span style="margin-left: 5px; font-size: 10px;">30293 lines</span></td><td>61.68 %</td></tr>
+    <tr><td style="width: 30px;">3.</td><td>nest-questionnaire <span style="margin-left: 5px; font-size: 10px;">24134 lines</span></td><td>51.55 %</td></tr>
+    <tr v-click="2"><td style="width: 30px;">5.</td><td>digital-cards <span style="margin-left: 5px; font-size: 10px;">20392 lines</span></td><td>89.75 %</td></tr>
+    <tr v-click="2"><td style="width: 30px;">7.</td><td>similarity <span style="margin-left: 5px; font-size: 10px;">14338 lines</span></td><td>83.07 %</td></tr>
+  </tbody>
+  </table>
+  </Card>
+</Cards>
+
 <Logo class="absolute bottom-6 right-8" :height="24" />
 <Head class="absolute bottom-6 left-8" :height="36" name="andre" />
 
 ---
-layout: section
+
+# Current state of test-coverage
+
+<h2 style="margin-top: 20px;">The Best</h2>
+
+<Cards :cols="2">
+  <Card class="text-sm mb-0"  title="2024"><table>
+  <tbody>
+    <tr><td style="width: 30px;">1.</td><td>digital-cards</td><td>87.86 %</td></tr>
+    <tr><td style="width: 30px;">2.</td><td>similarity</td><td>83.12 %</td></tr>
+    <tr><td style="width: 30px;">3.</td><td>questionnaire</td><td>76.98 %</td></tr>
+    <tr v-click="1"><td style="width: 30px;"></td><td>organization</td><td></td></tr>
+  </tbody>
+  </table>
+  </Card>
+  <Card class="text-sm mb-0" title="2026"><table>
+  <tbody>
+    <tr style="width: 30px;"><td>1.</td><td>questionnaire</td><td>91.21 %</td></tr>
+    <tr style="width: 30px;"><td>2.</td><td>organization</td><td>90.66 %</td></tr>
+    <tr style="width: 30px;"><td>3.</td><td>digital-cards</td><td>89.75 %</td></tr>
+    <tr v-click="1"><td style="width: 30px;">12.</td><td>similarity</td><td>83.07 %</td></tr>
+  </tbody>
+  </table>
+  </Card>
+</Cards>
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="andre" />
+
 ---
+
+# Final Remarks
+
+<ul style="margin-bottom: 70px;">
+  <li>Total coverage: 51.80 % to 67.27 % <twemoji-flexed-biceps /></li>
+  <li>Huge improvements on old code, and strong new features <twemoji-flexed-biceps /></li>
+  <li>Coverage on our most important packages is really high <twemoji-flexed-biceps /></li>
+  <li>Recent pen-test results came out super-positive <twemoji-flexed-biceps /></li>
+</ul>
+
+<h2 v-click="1" style="text-align: center;">HUGE SALUTE TO ALL OF YOU</h2>
+<h2 v-click="1" style="text-align: center;">KEEP IT UP!</h2>
+
+<Logo class="absolute bottom-6 right-8" :height="24" />
+<Head class="absolute bottom-6 left-8" :height="36" name="andre" />
