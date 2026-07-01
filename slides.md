@@ -394,15 +394,8 @@ export function exhaust<
 >(
   testCases: TestCases,
   testArgsFactory: (arg: Key, value: Value) => TestSetup,
-): (
-  description: string,
-  testFn: (args: TestSetup) => void | PromiseLike<void>,
-) => void {
-  return test.each(
-    Object.entries(testCases).map(([key, value]) =>
-      testArgsFactory(key as Key, value as Value),
-    ),
-  );
+): (description: string, testFn: (args: TestSetup) => void | PromiseLike<void>) => void {
+  return test.each(Object.entries(testCases).map(([key, value]) => testArgsFactory(key as Key, value as Value)));
 }
 ```
 
@@ -424,15 +417,11 @@ const testCases: Record<UserWithRoleKeys, HttpStatus> = {
   ORGANIZATION_ADMIN: HttpStatus.CREATED,
   SNAPADDY_ADMIN: HttpStatus.CREATED,
 };
-
 exhaust(testCases, expectedStatusTransformer<UserWithRoleKeys>)(
   "should $expectation the role $roleName returning HTTP $expectedStatus",
   async ({ roleName, expectedStatus }) => {
     const roleDefinition = getUserWithRoleDefinition(roleName);
-    const passengerHeader = passengerToString({
-      ...roleDefinition,
-      organizationId,
-    });
+    const passengerHeader = passengerToString({ ...roleDefinition, organizationId });
     await request(app.getHttpServer())
       .put("/scim")
       .send(dto)
